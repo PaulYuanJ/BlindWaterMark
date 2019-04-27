@@ -62,7 +62,7 @@ def bgr_to_rgb(img):
     return cv2.merge([r, g, b])
 
 if cmd == 'encode':
-    print('image<%s> + watermark<%s> -> image(encoded)<%s>' % (fn1, fn2, fn3))
+    print('待处理图片<%s> + 水印图片<%s> -> 处理结果<%s>' % (fn1, fn2, fn3))
     img = cv2.imread(fn1)
     wm = cv2.imread(fn2)
 
@@ -122,7 +122,7 @@ if cmd == 'encode':
             for k in range(img_wm.shape[2]):
                 sum += np.power(img_wm[i][j][k] - img_wm2[i][j][k], 2)
     miss = np.sqrt(sum) / (img_wm.shape[0] * img_wm.shape[1] * img_wm.shape[2]) * 100
-    print('Miss %s%% in save' % miss)
+    print('失真程度：%s%%' % miss)
 
     if debug:
         plt.subplot(233), plt.imshow(bgr_to_rgb(np.uint8(img_wm))), \
@@ -149,8 +149,11 @@ if cmd == 'encode':
     if debug:
         plt.show()
 
+    import winsound
+    winsound.Beep(600,500)
+
 elif cmd == 'decode':
-    print('image<%s> + image(encoded)<%s> -> watermark<%s>' % (fn1, fn2, fn3))
+    print('原始图片<%s> + 待提取图片<%s> -> 提取结果<%s>' % (fn1, fn2, fn3))
     img = cv2.imread(fn1)
     img_wm = cv2.imread(fn2)
 
@@ -199,3 +202,6 @@ elif cmd == 'decode':
 
     if debug:
         plt.show()
+
+    import winsound
+    winsound.Beep(600,500)
